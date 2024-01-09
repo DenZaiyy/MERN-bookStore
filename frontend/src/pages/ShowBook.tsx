@@ -1,11 +1,12 @@
-import BackButton from "../components/BackButton.tsx";
+import BackButton from "../components/BackButton";
 import {useEffect, useState} from "react";
 import axios from "axios";
 import {useParams} from "react-router-dom";
 import Spinner from "../components/Spinner.tsx";
+import bookInterface from "../utils/interface";
 
 const ShowBook = () => {
-	const [book, setBook] = useState({})
+	const [book, setBook] = useState<bookInterface>({});
 	const [loading, setLoading] = useState(false)
 	const {id} = useParams()
 
@@ -14,7 +15,8 @@ const ShowBook = () => {
 		axios
 			.get(`http://localhost:5555/books/${id}`)
 			.then((res) => {
-				setBook(res.data)
+				const data: bookInterface = res.data
+				setBook(data)
 				setLoading(false)
 			})
 			.catch((err) => {
@@ -25,10 +27,10 @@ const ShowBook = () => {
 
 	return (
 		<div className="p-4">
-			<BackButton />
+			<BackButton aria-label="Back button"/>
 			<h1 className="text-3xl my-4">Show Book</h1>
 			{loading ? (
-				<Spinner />
+				<Spinner aria-label="Loading"/>
 			) : (
 				<div className="flex flex-col border-2 border-sky-400 rounded-xl w-fit p-4">
 					<div className="my-4">

@@ -3,6 +3,7 @@ import BackButton from "../components/BackButton.tsx";
 import Spinner from "../components/Spinner.tsx";
 import axios from "axios";
 import {useNavigate} from "react-router-dom";
+import {useSnackbar} from "notistack";
 
 const CreateBook = () => {
 	const [title, setTitle] = useState('')
@@ -11,6 +12,8 @@ const CreateBook = () => {
 	const [loading, setLoading] = useState(false)
 
 	const navigate = useNavigate()
+
+	const {enqueueSnackbar} = useSnackbar()
 
 	const handleSaveBook = () => {
 		const data = {
@@ -24,11 +27,12 @@ const CreateBook = () => {
 			.post('http://localhost:5555/books', data)
 			.then(() => {
 				setLoading(false)
+				enqueueSnackbar('Book saved successfully', {variant: 'success'})
 				navigate('/')
 			})
 			.catch((err) => {
 				setLoading(false)
-				alert('An error happened. Please check console')
+				enqueueSnackbar('Error', {variant: 'error'})
 				console.log(err)
 			})
 	}
@@ -36,10 +40,10 @@ const CreateBook = () => {
 
 	return (
 		<div className="p-4">
-			<BackButton />
+			<BackButton aria-label="Back button"/>
 			<h1 className="text-3xl my-4">Create Book</h1>
 			{loading ? (
-				<Spinner/>
+				<Spinner aria-label="Loading"/>
 			) : (
 				<div className="flex flex-col border-2 border-sky-400 rounded-xl w-[600px] p-4 mx-auto">
 					<div className="my-4">
