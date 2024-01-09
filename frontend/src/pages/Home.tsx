@@ -49,7 +49,7 @@ const Home = () => {
 				</Link>
 			</div>
 			{loading ? (
-				<Spinner/>
+				<Spinner aria-label="Loading"/>
 			) : showType === 'table' ? (
 				<BooksTable books={books} />
 			) : (
