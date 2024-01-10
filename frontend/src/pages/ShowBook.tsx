@@ -6,23 +6,31 @@ import Spinner from "../components/Spinner.tsx";
 import bookInterface from "../utils/interface";
 
 const ShowBook = () => {
-	const [book, setBook] = useState<bookInterface>({});
-	const [loading, setLoading] = useState(false)
-	const {id} = useParams()
+	const [book, setBook] = useState<bookInterface>({
+		_id: 0,
+		title: "",
+		author: "",
+		publishYear: 0,
+		createdAt: "",
+		updatedAt: "",
+	});
+
+	const [loading, setLoading] = useState(false);
+	const {id} = useParams();
 
 	useEffect(() => {
-		setLoading(true)
+		setLoading(true);
 		axios
 			.get(`http://localhost:5555/books/${id}`)
 			.then((res) => {
-				const data: bookInterface = res.data
-				setBook(data)
-				setLoading(false)
+				const data: bookInterface = res.data;
+				setBook(data);
+				setLoading(false);
 			})
 			.catch((err) => {
-				console.log(err)
-				setLoading(false)
-			})
+				console.log(err);
+				setLoading(false);
+			});
 	}, []);
 
 	return (
@@ -38,23 +46,33 @@ const ShowBook = () => {
 						<span>{book._id}</span>
 					</div>
 					<div className="my-4">
-						<span className="text-xl mr-4 text-gray-500">Title</span>
+                        <span className="text-xl mr-4 text-gray-500">
+                            Title
+                        </span>
 						<span>{book.title}</span>
 					</div>
 					<div className="my-4">
-						<span className="text-xl mr-4 text-gray-500">Author</span>
+                        <span className="text-xl mr-4 text-gray-500">
+                            Author
+                        </span>
 						<span>{book.author}</span>
 					</div>
 					<div className="my-4">
-						<span className="text-xl mr-4 text-gray-500">Publish Year</span>
+                        <span className="text-xl mr-4 text-gray-500">
+                            Publish Year
+                        </span>
 						<span>{book.publishYear}</span>
 					</div>
 					<div className="my-4">
-						<span className="text-xl mr-4 text-gray-500">Create Time</span>
+                        <span className="text-xl mr-4 text-gray-500">
+                            Create Time
+                        </span>
 						<span>{new Date(book.createdAt).toString()}</span>
 					</div>
 					<div className="my-4">
-						<span className="text-xl mr-4 text-gray-500">Last Update Time</span>
+                        <span className="text-xl mr-4 text-gray-500">
+                            Last Update Time
+                        </span>
 						<span>{new Date(book.updatedAt).toString()}</span>
 					</div>
 				</div>

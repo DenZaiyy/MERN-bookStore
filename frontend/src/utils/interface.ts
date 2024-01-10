@@ -2,5 +2,7 @@ export default interface bookInterface {
 	_id: number,
 	title: string,
 	author: string,
-	publishYear: number
+	publishYear: number,
+	createdAt: string,
+	updatedAt: string
 }
