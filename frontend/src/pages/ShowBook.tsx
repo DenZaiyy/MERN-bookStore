@@ -18,10 +18,12 @@ const ShowBook = () => {
 	const [loading, setLoading] = useState(false);
 	const {id} = useParams();
 
+	const apiUrl = import.meta.env.VITE_APP_API_URL
+
 	useEffect(() => {
 		setLoading(true);
 		axios
-			.get(`http://localhost:5555/books/${id}`)
+			.get(`${apiUrl}/books/${id}`)
 			.then((res) => {
 				const data: bookInterface = res.data;
 				setBook(data);

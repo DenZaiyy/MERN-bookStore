@@ -17,10 +17,12 @@ const EditBook = () => {
 
 	const {id} = useParams()
 
+	const apiUrl = import.meta.env.VITE_APP_API_URL
+
 	useEffect(() => {
 		setLoading(true)
 		axios
-			.get(`http://localhost:5555/books/${id}`)
+			.get(`${apiUrl}/books/${id}`)
 			.then((res) => {
 				setTitle(res.data.title)
 				setAuthor(res.data.author)
@@ -43,7 +45,7 @@ const EditBook = () => {
 		setLoading(true)
 
 		axios
-			.put(`http://localhost:5555/books/${id}`, data)
+			.put(`${apiUrl}/books/${id}`, data)
 			.then(() => {
 				setLoading(false)
 				enqueueSnackbar("Book edited successfully", {variant: "success"})
